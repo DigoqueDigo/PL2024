@@ -17,7 +17,7 @@ class Pessoa:
 
     def __str__(self):
         return  f'ID: {self.id}'                    \
-                f'\tData: {self.dataEMD}'             \
+                f'\tData: {self.dataEMD}'           \
                 f'\tNome: {self.nome}'              \
                 f'\tApelido: {self.apelido}'        \
                 f'\tIdade: {self.idade}'            \
@@ -28,7 +28,7 @@ class Pessoa:
                 f'\tEmail: {self.email}'            \
                 f'\tFederado: {self.federado}'      \
                 f'\tResultado: {self.resultado}'
-    
+
 
     def getId(self):
         return self.id

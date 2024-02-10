@@ -38,6 +38,17 @@ if __name__ == '__main__':
 
     except:
         exit(1)
-    
-    with open('resultados/modalidades','w') as fileModalidades:
+
+
+    with open('resultados/modalidades.txt','w') as fileModalidades:
         fileModalidades.write('\n'.join(gestor.getAllModalidades()))
+
+
+    with open('resultados/aptidoes.txt','w') as fileAptidoes:
+        fileAptidoes.write(f'Aptos: {gestor.getDistAptos():.2f}\n')
+        fileAptidoes.write(f'Inaptos: {gestor.getDistInaptos():.2f}')
+
+
+    with open('resultados/escaloes.txt','w') as fileEscaloes:
+        for element in gestor.getDistEscalao(5):
+            fileEscaloes.write(f'{element[0]}: {element[1]:.2f}\n')
