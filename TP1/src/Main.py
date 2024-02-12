@@ -1,5 +1,5 @@
-from os import mkdir
-from sys import stdin, exit
+from sys import stdin
+from os import mkdir, path
 from datetime import datetime
 from parser.Parser import Parser
 from business.Gestor import Gestor
@@ -30,14 +30,9 @@ if __name__ == '__main__':
             atributos[11] == 'true'
         ))
 
-    try:
+
+    if not path.exists('resultados'):
         mkdir('resultados')
-
-    except FileExistsError:
-        pass
-
-    except:
-        exit(1)
 
 
     with open('resultados/modalidades.txt','w') as fileModalidades:
