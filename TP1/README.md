@@ -1,6 +1,6 @@
 # CSV Interpreter
 
-Leitura e interpretação de um ficheiro `csv` tendo em vista a obtenção de algumas estatísticas, sendo que os resultados serão guardados em disco.
+Leitura e interpretação de um ficheiro `csv` tendo em vista a obtenção de algumas estatísticas, sendo que os resultados são guardados em disco.
 
 ## Estatísticas
 
