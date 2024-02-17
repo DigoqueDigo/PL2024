@@ -4,7 +4,18 @@ import re as regex
 class Parser:
 
     def __init__(self):
+        self.buffer = str()
         self.functions = list()
+
+
+    def setParser(self):
+        self.functions.append(self.parseParagraph)
+        self.functions.append(self.parseHeader)
+        self.functions.append(self.parseBold)
+        self.functions.append(self.parseItalic)
+        self.functions.append(self.parseImage)
+        self.functions.append(self.parseLink)
+        self.functions.append(self.parseItem)
 
 
     def parseHeader(self,text):
@@ -47,3 +58,22 @@ class Parser:
             r'^\d+\.\s(.+)',
             lambda match: fr'<li>{match.group(1)}</li>',
             text)
+
+
+    def parseParagraph(self,text):
+        if text == self.parseHeader(text) and text == self.parseItem(text):
+            text = '<p>' + text + '</p>'
+        return text
+
+
+    def parseLine(self,text):
+        for function in self.functions:
+            text = function(text)
+        self.buffer += text + '\n'
+
+
+    def refactoryHTML(self):
+        return regex.sub(
+            r'(<li>.*<\/li>[\n\s]*)+',
+            lambda match: fr'<ol>{match.group(0)}</ol>',
+            self.buffer).strip("\n ")

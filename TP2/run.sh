@@ -6,5 +6,6 @@ read -r filename
 if [ ! -f "${filename}" ]; then
     echo "File not found: ${filename}"
 else
-    echo "File found: ${filename}"
+    cat "${filename}" | python3 src/Main.py > out.html
+    firefox out.html
 fi
