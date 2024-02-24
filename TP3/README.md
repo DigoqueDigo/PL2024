@@ -5,7 +5,7 @@ Leitura e análise de um ficheiro de texto, tendo em vista o cálculo do somató
 Enquanto estratégia de auxílio à resolução do problema, foi desenvolvido o autómato finito determinista.
 
 ## Autómato
-![Autómato finito desterminista](automato.svg)
+<img width=100% src="automato.svg" alt="Autómato Finito Determinista"/>
 
 ***Por motivos de clareza não foram desenhadas todas as transações.*** 
 
