@@ -1,6 +1,8 @@
 from sys import stdin
 from ply.lex import lex
+from ply.yacc import yacc
 
+## TOKENIZER
 
 reserved = {
    'SELECT' : 'SELECT',
@@ -30,15 +32,15 @@ t_LESS_THAN_EQUALS = r'<='
 t_GREATER_THAN_EQUALS = r'>='
 
 
-def t_VARIABLE(t):
-    r'\w+'
-    t.type = reserved.get(t.value.upper(),'VARIABLE')
+def t_NUMBER(t):
+    r'[+\-]?\d+'
+    t.value = int(t.value)
     return t
 
 
-def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
+def t_VARIABLE(t):
+    r'\w+'
+    t.type = reserved.get(t.value.upper(),'VARIABLE')
     return t
 
 
@@ -52,9 +54,38 @@ def t_error(t):
     t.lexer.skip(1)
 
 
+## GRAMMAR RULES
+
+def p_expression_reserved(p):
+    '''expression : SELECT select_list FROM VARIABLE WHERE compare_condition'''
+    p[0] = {'SELECT' : p[2], 'FROM' : p[4], 'WHERE' : p[6]}
+
+
+def p_select_list(p):
+    '''select_list : VARIABLE
+        | select_list COMMA VARIABLE'''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[3]]
+
+
+def p_compare_condition(p):
+    '''compare_condition : VARIABLE LESS NUMBER
+        | VARIABLE LESS_THAN_EQUALS NUMBER
+        | VARIABLE GREATER NUMBER
+        | VARIABLE GREATER_THAN_EQUALS NUMBER
+        | VARIABLE EQUALS NUMBER'''
+    p[0] = {'VARIABLE' : p[1], 'OPERATOR' : p[2], 'VALUE' : p[3]}
+
+
+def p_error(p):
+    print(f'Syntax error at {p.value}')
+
+
+## MAIN FUNCTION
+
 if __name__ == '__main__':
     lexer = lex()
-    for line in stdin:
-        lexer.input(line)
-        for token in lexer:
-            print(token)
+    parser = yacc()
+    print(parser.parse(stdin.read()))
