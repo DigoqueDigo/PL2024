@@ -3,12 +3,13 @@
 Implementação de uma calculadora interativa que aceita expressões matemáticas com variáveis.
 
 ## Gramática
+
 ```
-PRINT : EXPRESSION
+READ : ? VARIABLE
+
+PRINT : ! EXPRESSION
 
 ASSIGN : VARIABLE = EXPRESSION
-
-READ : VARIABLE
 
 EXPRESSION : TERM PLUS TERM
         | TERM MINUS TERM
@@ -26,9 +27,9 @@ FACTOR : NUMBER
 ## Lookahead's
 
 ```
-LK(PRINT) : {NUMBER,VARIAVLE,LPAREN}
+LK(READ) : {?}
+LK(PRINT) : {!}
 LK(ASSIGN) : {VARIABLE}
-LK(READ) : {VARIABLE}
 LK(EXPRESSION) : {NUMBER,VARIAVLE,LPAREN}
 LK(TERM) : {NUMBER,VARIAVLE,LPAREN}
 LK(FACTION) :{NUMBER,VARIAVLE,LPAREN}
