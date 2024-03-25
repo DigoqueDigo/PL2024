@@ -1,0 +1,35 @@
+# Calculator
+
+Implementação de uma calculadora interativa que aceita expressões matemáticas com variáveis.
+
+## Gramática
+```
+PRINT : EXPRESSION
+
+ASSIGN : VARIABLE = EXPRESSION
+
+READ : VARIABLE
+
+EXPRESSION : TERM PLUS TERM
+        | TERM MINUS TERM
+        | TERM
+
+TERM: FACTOR TIMES FACTOR
+    | FACTOR DIVIDE FACTOR
+    | FACTOR
+
+FACTOR : NUMBER
+    | VARIABLE
+    | LPAREN EXPRESSION RPAREN
+```
+
+## Lookahead's
+
+```
+LK(PRINT) : {NUMBER,VARIAVLE,LPAREN}
+LK(ASSIGN) : {VARIABLE}
+LK(READ) : {VARIABLE}
+LK(EXPRESSION) : {NUMBER,VARIAVLE,LPAREN}
+LK(TERM) : {NUMBER,VARIAVLE,LPAREN}
+LK(FACTION) :{NUMBER,VARIAVLE,LPAREN}
+```
